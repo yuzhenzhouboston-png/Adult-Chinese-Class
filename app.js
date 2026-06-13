@@ -35,7 +35,6 @@ const $ = (selector) => document.querySelector(selector);
 
 const translations = {
   zh: {
-    languageToggle: "English",
     accessKicker: "Class Access",
     siteTitle: "成人中文班复习中心",
     accessLabel: "请输入课堂访问码",
@@ -119,7 +118,6 @@ const translations = {
     aiStoreHint: "你可以问：这个多少钱？有没有大一点的？"
   },
   en: {
-    languageToggle: "中文",
     accessKicker: "Class Access",
     siteTitle: "Adult Chinese Review Center",
     accessLabel: "Enter the class access code",
@@ -204,15 +202,16 @@ const translations = {
   }
 };
 
-let currentLanguage = localStorage.getItem("adultChineseClassLanguage") || "zh";
-
 function t(key, ...args) {
-  const value = translations[currentLanguage][key] ?? translations.zh[key] ?? key;
-  return typeof value === "function" ? value(...args) : value;
+  const zhValue = translations.zh[key] ?? key;
+  const enValue = translations.en[key] ?? zhValue;
+  const zhText = typeof zhValue === "function" ? zhValue(...args) : zhValue;
+  const enText = typeof enValue === "function" ? enValue(...args) : enValue;
+  return zhText === enText ? zhText : `${zhText} / ${enText}`;
 }
 
 function applyLanguage() {
-  document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
+  document.documentElement.lang = "zh-Hans";
   document.title = t("siteTitle");
   document.querySelectorAll("[data-i18n]").forEach((item) => {
     item.textContent = t(item.dataset.i18n);
@@ -220,15 +219,7 @@ function applyLanguage() {
   document.querySelectorAll("[data-i18n-placeholder]").forEach((item) => {
     item.placeholder = t(item.dataset.i18nPlaceholder);
   });
-  $("#languageToggle").textContent = t("languageToggle");
 }
-
-$("#languageToggle").addEventListener("click", () => {
-  currentLanguage = currentLanguage === "zh" ? "en" : "zh";
-  localStorage.setItem("adultChineseClassLanguage", currentLanguage);
-  applyLanguage();
-  renderAll();
-});
 
 function loadState() {
   const siteConfig = window.CLASS_SITE_CONFIG || {};
