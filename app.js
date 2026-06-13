@@ -1,13 +1,15 @@
 const defaults = {
   matchPairs: [
-    { zh: "预约", en: "make an appointment" },
-    { zh: "菜单", en: "menu" },
-    { zh: "打包", en: "to go / take away" },
-    { zh: "收据", en: "receipt" }
+    { zh: "你好", py: "nǐ hǎo", en: "hello" },
+    { zh: "名字", py: "míng zi", en: "name" },
+    { zh: "我叫", py: "wǒ jiào", en: "my name is" },
+    { zh: "认识", py: "rèn shi", en: "to meet / to know" },
+    { zh: "来自", py: "lái zì", en: "to come from" },
+    { zh: "很高兴", py: "hěn gāo xìng", en: "very happy / nice to" }
   ],
   sentence: {
-    target: "我想预约明天下午三点。",
-    translation: "I would like to make an appointment for tomorrow at 3 PM."
+    target: "我叫安娜，很高兴认识你。",
+    translation: "My name is Anna. Nice to meet you."
   },
   listening: [
     { q: "说话的人在哪里？", a: "餐厅" },
@@ -20,13 +22,13 @@ const defaults = {
     { name: "在商店买东西", goal: "练习询问价格、颜色、尺寸和付款方式。" }
   ],
   homeworkVideo: {
-    name: "作业视频",
-    url: ""
+    name: "Chinese Conversation for Beginners: Self Introduction",
+    url: "https://youtu.be/r9XWsyYWT3w?si=CBcQ0uTMNUO316aS"
   },
   readingDialogue: [
-    { role: "A", zh: "你好，请问你叫什么名字？", en: "Hello, what is your name?" },
-    { role: "B", zh: "我叫安娜。很高兴认识你。", en: "My name is Anna. Nice to meet you." },
-    { role: "A", zh: "我也很高兴认识你。", en: "Nice to meet you too." }
+    { role: "A", zh: "你好，请问你叫什么名字？", py: "Nǐ hǎo, qǐng wèn nǐ jiào shén me míng zi?", en: "Hello, what is your name?" },
+    { role: "B", zh: "我叫安娜。很高兴认识你。", py: "Wǒ jiào Ān nà. Hěn gāo xìng rèn shi nǐ.", en: "My name is Anna. Nice to meet you." },
+    { role: "A", zh: "我也很高兴认识你。", py: "Wǒ yě hěn gāo xìng rèn shi nǐ.", en: "Nice to meet you too." }
   ],
   slides: [],
   video: null,
@@ -227,12 +229,73 @@ const translations = {
   }
 };
 
+const pinyinLabels = {
+  siteTitle: "chéng rén zhōng wén bān fù xí zhōng xīn",
+  accessLabel: "qǐng shū rù kè táng fǎng wèn mǎ",
+  accessButton: "jìn rù xué xí",
+  accessWrong: "fǎng wèn mǎ bù zhèng què, qǐng zài shì yí cì",
+  heroSubtitle: "kè táng liàn xí, jiā tíng zuò yè, xué xí zī yuán hé chǎng jǐng duì huà liàn xí dōu fàng zài yí gè dì fāng",
+  tabSlides: "kè táng liàn xí",
+  tabHomework: "zuò yè",
+  tabListening: "xué xí zī yuán",
+  tabDialogue: "duì huà",
+  tabTeacher: "lǎo shī shè zhì",
+  slidesTitle: "kè táng liàn xí",
+  localUpload: "běn jī lín shí shàng chuán",
+  homeworkTitle: "jiā tíng zuò yè",
+  resetPractice: "chóng xīn liàn xí",
+  matchTitle: "yóu xì: zhōng yīng wén pèi duì",
+  chineseLabel: "zhōng wén",
+  englishLabel: "yīng wén",
+  sentenceTitle: "zǔ chéng jù zi",
+  check: "jiǎn chá",
+  clear: "qīng kōng",
+  homeworkVideoEmpty: "lǎo shī kě yǐ zài zhè lǐ fàng YouTube shì pín, xué shēng kàn wán hòu wán chéng xià miàn de zuò yè",
+  readingTitle: "lǎng dú zhōng yīng wén duì huà",
+  listeningTitle: "xué xí zī yuán",
+  videoEmpty: "lǎo shī kě yǐ fàng yí duàn chǎng jǐng shì pín, huò qí tā xué xí zī yuán",
+  listeningQuestionsTitle: "zī yuán wèn tí",
+  checkListening: "jiǎn chá dá àn",
+  dialogueTitle: "chǎng jǐng duì huà liàn xí",
+  newDialogue: "huàn yí gè kāi tóu",
+  scenarioLabel: "chǎng jǐng",
+  studentRoleLabel: "xué shēng jué sè",
+  aiRoleLabel: "AI jué sè",
+  practiceGoal: "liàn xí mù biāo",
+  chatPlaceholder: "yòng zhōng wén huí fù, lì rú: wǒ xiǎng diǎn yì bēi rè chá",
+  send: "fā sòng",
+  saveSettings: "bǎo cún shè zhì",
+  onlineSlidesTitle: "xiàn shàng kè jiàn liàn jiē",
+  onlineVideoTitle: "xiàn shàng shì pín liàn jiē",
+  homeworkVideoEditorTitle: "zuò yè YouTube shì pín",
+  matchEditorTitle: "pèi duì tí",
+  sentenceEditorTitle: "zǔ jù tí",
+  listeningEditorTitle: "zī yuán wèn tí",
+  readingEditorTitle: "lǎng dú duì huà",
+  scenarioEditorTitle: "duì huà chǎng jǐng",
+  sentenceCorrect: "hěn hǎo! zhè jù huà shùn xù zhèng què",
+  sentenceWrong: "zài shì yí cì. zhèng què dá àn shì",
+  saved: "yǐ bǎo cún. xué shēng yè miàn yǐ jīng gēng xīn",
+  noSlidesTitle: "hái méi yǒu kè táng liàn xí",
+  noSlidesBody: "zài lǎo shī shè zhì lǐ tiān jiā xiàn shàng kè táng liàn xí liàn jiē, xué shēng jiù néng zài zhè lǐ dǎ kāi fù xí",
+  openReview: "dǎ kāi fù xí",
+  downloadReview: "xià zǎi fù xí",
+  deleteSlide: "shān chú",
+  matchCorrect: "pèi duì zhèng què",
+  matchWrong: "zhè liǎng gè bú shì yì zǔ, zài xuǎn yí cì",
+  sentenceEmpty: "diǎn jī shàng miàn de cí yǔ, zǔ chéng zhōng wén jù zi",
+  openVideo: "dǎ kāi chǎng jǐng shì pín",
+  listeningPlaceholder: "xiě xià nǐ tīng dào de guān jiàn cí"
+};
+
 function t(key, ...args) {
   const zhValue = translations.zh[key] ?? key;
   const enValue = translations.en[key] ?? zhValue;
   const zhText = typeof zhValue === "function" ? zhValue(...args) : zhValue;
   const enText = typeof enValue === "function" ? enValue(...args) : enValue;
-  return zhText === enText ? zhText : `${zhText} / ${enText}`;
+  const py = pinyinLabels[key];
+  const zhWithPinyin = py ? `${zhText} (${py})` : zhText;
+  return zhText === enText ? zhWithPinyin : `${zhWithPinyin} / ${enText}`;
 }
 
 function applyLanguage() {
@@ -348,6 +411,16 @@ async function deleteFile(id) {
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
 }
+
+const wordPinyin = {
+  "我叫": "wǒ jiào",
+  "安娜": "Ān nà",
+  "很高兴": "hěn gāo xìng",
+  "认识": "rèn shi",
+  "你": "nǐ",
+  "，": "",
+  "。": ""
+};
 
 function escapeHtml(value) {
   return String(value)
@@ -595,7 +668,7 @@ function renderMatch() {
   shuffle(state.matchPairs).forEach((pair) => {
     const button = document.createElement("button");
     button.className = "choice";
-    button.textContent = pair.zh;
+    button.innerHTML = formatChineseTerm(pair.zh, pair.py);
     button.addEventListener("click", () => chooseMatch("zh", pair, button));
     zhBox.appendChild(button);
   });
@@ -607,6 +680,11 @@ function renderMatch() {
     button.addEventListener("click", () => chooseMatch("en", pair, button));
     enBox.appendChild(button);
   });
+}
+
+function formatChineseTerm(zh, py) {
+  const pinyin = py ? `<small>${escapeHtml(py)}</small>` : "";
+  return `<span>${escapeHtml(zh)}</span>${pinyin}`;
 }
 
 function chooseMatch(type, pair, button) {
@@ -648,7 +726,7 @@ function renderSentence() {
     if (selectedCount >= totalCount) return;
     const chip = document.createElement("button");
     chip.className = "word-chip";
-    chip.textContent = word;
+    chip.innerHTML = formatChineseTerm(word, wordPinyin[word]);
     chip.addEventListener("click", () => {
       sentenceAnswer.push(word);
       renderSentence();
@@ -659,7 +737,7 @@ function renderSentence() {
   sentenceAnswer.forEach((word, index) => {
     const chip = document.createElement("button");
     chip.className = "word-chip";
-    chip.textContent = word;
+    chip.innerHTML = formatChineseTerm(word, wordPinyin[word]);
     chip.addEventListener("click", () => {
       sentenceAnswer.splice(index, 1);
       renderSentence();
@@ -682,6 +760,7 @@ function renderReadingDialogue() {
       <span class="reading-role">${escapeHtml(line.role)}</span>
       <div>
         <strong>${escapeHtml(line.zh)}</strong>
+        ${line.py ? `<em>${escapeHtml(line.py)}</em>` : ""}
         <p>${escapeHtml(line.en)}</p>
       </div>
     `;

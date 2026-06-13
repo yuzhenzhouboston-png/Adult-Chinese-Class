@@ -348,6 +348,21 @@ button:hover,
   padding: 8px 12px;
 }
 
+.choice span,
+.word-chip span {
+  display: block;
+  font-weight: 800;
+}
+
+.choice small,
+.word-chip small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
 .choice.is-selected {
   border-color: var(--blue);
   background: #eaf2f9;
@@ -543,10 +558,17 @@ textarea {
 }
 
 .reading-line strong,
+.reading-line em,
 .reading-line p {
   display: block;
   margin: 0;
   line-height: 1.5;
+}
+
+.reading-line em {
+  color: var(--jade);
+  font-style: normal;
+  font-weight: 700;
 }
 
 .reading-line p {
