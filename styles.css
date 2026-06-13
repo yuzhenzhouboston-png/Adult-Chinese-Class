@@ -99,7 +99,7 @@ button:hover,
 
 .access-card h1 {
   margin: 0;
-  font-size: clamp(2rem, 8vw, 3rem);
+  font-size: clamp(1.7rem, 6vw, 2.4rem);
   line-height: 1.05;
   letter-spacing: 0;
 }
@@ -159,9 +159,9 @@ button:hover,
 
 .hero h1 {
   margin: 0;
-  max-width: 700px;
-  font-size: clamp(2.4rem, 7vw, 5.6rem);
-  line-height: 0.98;
+  max-width: 920px;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.04;
   letter-spacing: 0;
 }
 
@@ -278,7 +278,16 @@ button:hover,
 }
 
 .practice-layout {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+
+.homework-video-panel {
+  margin-bottom: 18px;
+}
+
+.compact-video {
+  min-height: 280px;
+  margin-top: 14px;
 }
 
 .panel,
@@ -405,6 +414,10 @@ button:hover,
   background: #111a18;
 }
 
+.compact-video iframe {
+  min-height: 280px;
+}
+
 .empty-state {
   color: #eef5ed;
   max-width: 460px;
@@ -501,6 +514,43 @@ textarea {
 
 .teacher-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reading-dialogue {
+  display: grid;
+  gap: 12px;
+}
+
+.reading-line {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcf8;
+}
+
+.reading-role {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--jade);
+  color: #fff;
+  font-weight: 900;
+}
+
+.reading-line strong,
+.reading-line p {
+  display: block;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.reading-line p {
+  color: var(--muted);
 }
 
 @media (max-width: 780px) {

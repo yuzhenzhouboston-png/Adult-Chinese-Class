@@ -60,6 +60,17 @@
           <button class="secondary-button" id="resetPractice" data-i18n="resetPractice">重新练习</button>
         </div>
 
+        <article class="panel homework-video-panel">
+          <div>
+            <p class="section-kicker" data-i18n="homeworkVideoKicker">Video</p>
+            <h3 id="homeworkVideoTitle"></h3>
+          </div>
+          <div class="video-frame compact-video">
+            <iframe id="homeworkVideoEmbed" title="作业视频" allowfullscreen></iframe>
+            <div id="homeworkVideoEmpty" class="empty-state" data-i18n="homeworkVideoEmpty">老师可以在这里放 YouTube 视频，学生看完后完成下面的作业。</div>
+          </div>
+        </article>
+
         <div class="practice-layout">
           <article class="panel">
             <div class="panel-title">
@@ -92,6 +103,14 @@
               <button class="secondary-button" id="clearSentence" data-i18n="clear">清空</button>
             </div>
             <p id="sentenceFeedback" class="feedback"></p>
+          </article>
+
+          <article class="panel reading-panel">
+            <div class="panel-title">
+              <span>3</span>
+              <h3 data-i18n="readingTitle">朗读中英文对话</h3>
+            </div>
+            <div id="readingDialogue" class="reading-dialogue"></div>
           </article>
         </div>
       </section>
@@ -178,6 +197,12 @@
             <p class="helper" data-i18n="onlineVideoHelp">发布给学生时，推荐使用 unlisted YouTube 或共享视频链接。</p>
           </article>
           <article class="panel">
+            <h3 data-i18n="homeworkVideoEditorTitle">作业 YouTube 视频</h3>
+            <input id="homeworkVideoTitleEditor" type="text" placeholder="视频标题" data-i18n-placeholder="videoTitlePlaceholder">
+            <input id="homeworkVideoUrlEditor" type="url" placeholder="YouTube 视频链接" data-i18n-placeholder="homeworkVideoUrlPlaceholder">
+            <p class="helper" data-i18n="homeworkVideoEditorHelp">学生会先看这个视频，再完成作业。</p>
+          </article>
+          <article class="panel">
             <h3 data-i18n="matchEditorTitle">匹配题</h3>
             <textarea id="matchEditor" rows="8"></textarea>
             <p class="helper" data-i18n="matchEditorHelp">每行一组：中文 = English</p>
@@ -192,6 +217,11 @@
             <h3 data-i18n="listeningEditorTitle">听力问题</h3>
             <textarea id="listeningEditor" rows="8"></textarea>
             <p class="helper" data-i18n="listeningEditorHelp">每行一题：问题 = 答案关键词</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="readingEditorTitle">朗读对话</h3>
+            <textarea id="readingEditor" rows="8"></textarea>
+            <p class="helper" data-i18n="readingEditorHelp">每行一句：角色 = 中文 | English</p>
           </article>
           <article class="panel">
             <h3 data-i18n="scenarioEditorTitle">对话场景</h3>

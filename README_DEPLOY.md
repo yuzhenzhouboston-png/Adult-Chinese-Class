@@ -28,6 +28,8 @@ window.CLASS_SITE_CONFIG = {
 - `accessCode` 是学生进入网站的访问码。适合小班使用，但不是严格安全的登录系统。
 - `slides` 放 PPT、PDF 或讲义链接。推荐用 Google Drive、OneDrive、Dropbox 或网盘共享链接。
 - `video.url` 推荐用 YouTube unlisted 链接，或者可公开访问的视频链接。
+- `homeworkVideo.url` 可以放作业区的 YouTube 视频链接。
+- `readingDialogue` 可以放中英文朗读对话。
 
 ## 最简单发布方式：Netlify
 

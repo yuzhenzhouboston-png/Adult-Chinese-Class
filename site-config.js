@@ -10,7 +10,23 @@ window.CLASS_SITE_CONFIG = {
     }
   ],
   video: {
-    name: "听力视频示例",
+    name: "学习资源视频示例",
     url: ""
-  }
+  },
+  homeworkVideo: {
+    name: "作业视频示例",
+    url: ""
+  },
+  readingDialogue: [
+    {
+      role: "A",
+      zh: "你好，请问你叫什么名字？",
+      en: "Hello, what is your name?"
+    },
+    {
+      role: "B",
+      zh: "我叫安娜。很高兴认识你。",
+      en: "My name is Anna. Nice to meet you."
+    }
+  ]
 };

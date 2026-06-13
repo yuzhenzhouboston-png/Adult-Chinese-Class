@@ -19,6 +19,15 @@ const defaults = {
     { name: "打电话预约", goal: "练习说明时间、姓名、原因和确认信息。" },
     { name: "在商店买东西", goal: "练习询问价格、颜色、尺寸和付款方式。" }
   ],
+  homeworkVideo: {
+    name: "作业视频",
+    url: ""
+  },
+  readingDialogue: [
+    { role: "A", zh: "你好，请问你叫什么名字？", en: "Hello, what is your name?" },
+    { role: "B", zh: "我叫安娜。很高兴认识你。", en: "My name is Anna. Nice to meet you." },
+    { role: "A", zh: "我也很高兴认识你。", en: "Nice to meet you too." }
+  ],
   slides: [],
   video: null,
   accessCode: "",
@@ -41,28 +50,31 @@ const translations = {
     accessButton: "进入学习",
     accessWrong: "访问码不正确，请再试一次。",
     heroKicker: "Adult Chinese Review Studio",
-    heroSubtitle: "课件复习、家庭作业、听力视频和场景对话练习都放在一个地方。",
-    tabSlides: "课件",
+    heroSubtitle: "课堂练习、家庭作业、学习资源和场景对话练习都放在一个地方。",
+    tabSlides: "课堂练习",
     tabHomework: "作业",
-    tabListening: "听力",
+    tabListening: "学习资源",
     tabDialogue: "对话",
     tabTeacher: "老师设置",
     slidesKicker: "Review",
-    slidesTitle: "上课课件",
+    slidesTitle: "课堂练习",
     localUpload: "本机临时上传",
     homeworkKicker: "Homework",
     homeworkTitle: "家庭作业",
     resetPractice: "重新练习",
-    matchTitle: "Match 中英文词语",
+    matchTitle: "游戏：中英文配对",
     chineseLabel: "中文",
     englishLabel: "英文",
-    sentenceTitle: "组成一句话",
+    sentenceTitle: "组成句子",
     check: "检查",
     clear: "清空",
-    listeningKicker: "Listening",
-    listeningTitle: "场景视频听力",
-    videoEmpty: "老师可以放一段餐厅、商店、看医生等场景视频，学生边看边回答问题。",
-    listeningQuestionsTitle: "听力问题",
+    homeworkVideoKicker: "Video",
+    homeworkVideoEmpty: "老师可以在这里放 YouTube 视频，学生看完后完成下面的作业。",
+    readingTitle: "朗读中英文对话",
+    listeningKicker: "Resources",
+    listeningTitle: "学习资源",
+    videoEmpty: "老师可以放一段餐厅、商店、看医生等场景视频，或其他学习资源。",
+    listeningQuestionsTitle: "资源问题",
     checkListening: "检查听力答案",
     speakingKicker: "Speaking",
     dialogueTitle: "场景对话练习",
@@ -82,12 +94,17 @@ const translations = {
     videoTitlePlaceholder: "视频标题",
     videoUrlPlaceholder: "YouTube unlisted、Google Drive 或 mp4 链接",
     onlineVideoHelp: "发布给学生时，推荐使用 unlisted YouTube 或共享视频链接。",
+    homeworkVideoEditorTitle: "作业 YouTube 视频",
+    homeworkVideoUrlPlaceholder: "YouTube 视频链接",
+    homeworkVideoEditorHelp: "学生会先看这个视频，再完成作业。",
     matchEditorTitle: "匹配题",
     matchEditorHelp: "每行一组：中文 = English",
     sentenceEditorTitle: "组句题",
     sentenceEditorHelp: "第一行写中文正确答案，第二行写英文提示。",
     listeningEditorTitle: "听力问题",
     listeningEditorHelp: "每行一题：问题 = 答案关键词",
+    readingEditorTitle: "朗读对话",
+    readingEditorHelp: "每行一句：角色 = 中文 | English",
     scenarioEditorTitle: "对话场景",
     scenarioEditorHelp: "每行一个场景：场景名 = 练习目标",
     saveTooLarge: "浏览器无法保存这么大的文件。请用 Chrome 或 Edge 打开本页面，或改用较小的视频文件。",
@@ -124,29 +141,32 @@ const translations = {
     accessButton: "Enter",
     accessWrong: "That access code is not correct. Please try again.",
     heroKicker: "Adult Chinese Review Studio",
-    heroSubtitle: "Review slides, homework, listening videos, and scenario conversation practice in one place.",
-    tabSlides: "Slides",
+    heroSubtitle: "Class work, homework, learning resources, and scenario dialogue practice in one place.",
+    tabSlides: "Class Work / Ketang lianxi",
     tabHomework: "Homework",
-    tabListening: "Listening",
+    tabListening: "Learning Resources",
     tabDialogue: "Dialogue",
     tabTeacher: "Teacher",
     slidesKicker: "Review",
-    slidesTitle: "Class Slides",
+    slidesTitle: "Class Work / Ketang lianxi",
     localUpload: "Local upload",
     homeworkKicker: "Homework",
     homeworkTitle: "Homework",
     resetPractice: "Practice Again",
-    matchTitle: "Match Chinese and English Words",
+    matchTitle: "Game: Match Chinese and English Words",
     chineseLabel: "Chinese",
     englishLabel: "English",
-    sentenceTitle: "Build a Sentence",
+    sentenceTitle: "Build Sentences",
     check: "Check",
     clear: "Clear",
-    listeningKicker: "Listening",
-    listeningTitle: "Scenario Listening Video",
-    videoEmpty: "The teacher can add a restaurant, shopping, doctor visit, or other scenario video for listening practice.",
-    listeningQuestionsTitle: "Listening Questions",
-    checkListening: "Check Listening Answers",
+    homeworkVideoKicker: "Video",
+    homeworkVideoEmpty: "The teacher can add a YouTube video here. Watch it first, then complete the homework below.",
+    readingTitle: "Read a Chinese-English Dialogue",
+    listeningKicker: "Resources",
+    listeningTitle: "Learning Resources",
+    videoEmpty: "The teacher can add a scenario video or other learning resource here.",
+    listeningQuestionsTitle: "Resource Questions",
+    checkListening: "Check Answers",
     speakingKicker: "Speaking",
     dialogueTitle: "Scenario Dialogue Practice",
     newDialogue: "New Opening",
@@ -165,12 +185,17 @@ const translations = {
     videoTitlePlaceholder: "Video title",
     videoUrlPlaceholder: "YouTube unlisted, Google Drive, or mp4 link",
     onlineVideoHelp: "For students, use an unlisted YouTube video or a shared video link.",
+    homeworkVideoEditorTitle: "Homework YouTube Video",
+    homeworkVideoUrlPlaceholder: "YouTube video link",
+    homeworkVideoEditorHelp: "Students watch this video first, then complete the homework.",
     matchEditorTitle: "Matching",
     matchEditorHelp: "One pair per line: 中文 = English",
     sentenceEditorTitle: "Sentence Builder",
     sentenceEditorHelp: "First field: correct Chinese sentence. Second field: English prompt.",
     listeningEditorTitle: "Listening Questions",
     listeningEditorHelp: "One question per line: Question = answer keyword",
+    readingEditorTitle: "Reading Dialogue",
+    readingEditorHelp: "One line each: Role = Chinese | English",
     scenarioEditorTitle: "Dialogue Scenarios",
     scenarioEditorHelp: "One scenario per line: Scenario name = practice goal",
     saveTooLarge: "The browser cannot save a file this large. Please use Chrome or Edge, or use a smaller video file.",
@@ -230,6 +255,8 @@ function loadState() {
     sentence: siteConfig.sentence || defaults.sentence,
     listening: siteConfig.listening || defaults.listening,
     scenarios: siteConfig.scenarios || defaults.scenarios,
+    homeworkVideo: siteConfig.homeworkVideo || defaults.homeworkVideo,
+    readingDialogue: siteConfig.readingDialogue || defaults.readingDialogue,
     slides: (siteConfig.slides || defaults.slides).filter((slide) => slide.url || slide.dataUrl || slide.id),
     video: siteConfig.video?.url ? siteConfig.video : defaults.video
   };
@@ -320,6 +347,15 @@ async function deleteFile(id) {
 
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 document.querySelectorAll(".tab").forEach((tab) => {
@@ -419,6 +455,11 @@ $("#saveTeacherData").addEventListener("click", () => {
         url: videoUrl
       }
     : null;
+  const homeworkVideoUrl = $("#homeworkVideoUrlEditor").value.trim();
+  state.homeworkVideo = {
+    name: $("#homeworkVideoTitleEditor").value.trim() || "作业视频",
+    url: homeworkVideoUrl
+  };
 
   state.matchPairs = $("#matchEditor").value
     .split("\n")
@@ -436,6 +477,16 @@ $("#saveTeacherData").addEventListener("click", () => {
     .map((line) => line.split("="))
     .filter((parts) => parts.length === 2 && parts[0].trim() && parts[1].trim())
     .map(([q, a]) => ({ q: q.trim(), a: a.trim() }));
+
+  state.readingDialogue = $("#readingEditor").value
+    .split("\n")
+    .map((line) => line.split("="))
+    .filter((parts) => parts.length >= 2 && parts[0].trim() && parts.slice(1).join("=").trim())
+    .map(([role, ...rest]) => {
+      const [zh = "", en = ""] = rest.join("=").split("|");
+      return { role: role.trim(), zh: zh.trim(), en: en.trim() };
+    })
+    .filter((line) => line.zh || line.en);
 
   state.scenarios = $("#scenarioEditor").value
     .split("\n")
@@ -504,8 +555,35 @@ async function renderSlides() {
 }
 
 function renderHomework() {
+  renderHomeworkVideo();
   renderMatch();
   renderSentence();
+  renderReadingDialogue();
+}
+
+function renderHomeworkVideo() {
+  const title = $("#homeworkVideoTitle");
+  const embed = $("#homeworkVideoEmbed");
+  const empty = $("#homeworkVideoEmpty");
+  title.textContent = state.homeworkVideo?.name || t("homeworkVideoKicker");
+  if (!state.homeworkVideo?.url) {
+    embed.style.display = "none";
+    embed.removeAttribute("src");
+    empty.style.display = "block";
+    empty.textContent = t("homeworkVideoEmpty");
+    return;
+  }
+  const embedUrl = getEmbeddableVideoUrl(state.homeworkVideo.url);
+  if (embedUrl) {
+    embed.src = embedUrl;
+    embed.style.display = "block";
+    empty.style.display = "none";
+  } else {
+    embed.style.display = "none";
+    embed.removeAttribute("src");
+    empty.innerHTML = `<a class="download-link" target="_blank" rel="noopener" href="${state.homeworkVideo.url}">${t("openVideo")}</a>`;
+    empty.style.display = "block";
+  }
 }
 
 function renderMatch() {
@@ -594,6 +672,23 @@ function renderSentence() {
   }
 }
 
+function renderReadingDialogue() {
+  const box = $("#readingDialogue");
+  box.innerHTML = "";
+  state.readingDialogue.forEach((line) => {
+    const row = document.createElement("div");
+    row.className = "reading-line";
+    row.innerHTML = `
+      <span class="reading-role">${escapeHtml(line.role)}</span>
+      <div>
+        <strong>${escapeHtml(line.zh)}</strong>
+        <p>${escapeHtml(line.en)}</p>
+      </div>
+    `;
+    box.appendChild(row);
+  });
+}
+
 function splitChineseSentence(sentence) {
   const punctuation = sentence.match(/[。！？!?]$/)?.[0] || "";
   const clean = sentence.replace(/[。！？!?]$/, "");
@@ -662,16 +757,20 @@ function renderListening() {
 }
 
 function renderTeacher() {
+  if (!$("#slideLinkEditor")) return;
   $("#slideLinkEditor").value = state.slides
     .filter((item) => item.url)
     .map((item) => `${item.name} = ${item.url}`)
     .join("\n");
   $("#videoTitle").value = state.video?.name || "";
   $("#videoUrl").value = state.video?.url || "";
+  $("#homeworkVideoTitleEditor").value = state.homeworkVideo?.name || "";
+  $("#homeworkVideoUrlEditor").value = state.homeworkVideo?.url || "";
   $("#matchEditor").value = state.matchPairs.map((item) => `${item.zh} = ${item.en}`).join("\n");
   $("#sentenceTarget").value = state.sentence.target;
   $("#sentenceTranslation").value = state.sentence.translation;
   $("#listeningEditor").value = state.listening.map((item) => `${item.q} = ${item.a}`).join("\n");
+  $("#readingEditor").value = state.readingDialogue.map((item) => `${item.role} = ${item.zh} | ${item.en}`).join("\n");
   $("#scenarioEditor").value = state.scenarios.map((item) => `${item.name} = ${item.goal}`).join("\n");
 }
 
