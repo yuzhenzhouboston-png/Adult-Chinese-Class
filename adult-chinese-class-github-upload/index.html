@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>成人中文班复习中心</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="access-screen" id="accessScreen" hidden>
+      <form class="access-card" id="accessForm">
+        <p class="section-kicker" data-i18n="accessKicker">Class Access</p>
+        <h1 data-i18n="siteTitle">成人中文班复习中心</h1>
+        <label for="accessCodeInput" data-i18n="accessLabel">请输入课堂访问码</label>
+        <input id="accessCodeInput" type="password" autocomplete="current-password">
+        <button type="submit" data-i18n="accessButton">进入学习</button>
+        <p class="feedback is-wrong" id="accessFeedback"></p>
+      </form>
+    </div>
+
+    <header class="hero">
+      <img src="assets/classroom-banner.png" alt="中文课堂学习桌面" class="hero-image">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">English</button>
+        <p class="eyebrow" data-i18n="heroKicker">Adult Chinese Review Studio</p>
+        <h1 data-i18n="siteTitle">成人中文班复习中心</h1>
+        <p data-i18n="heroSubtitle">课件复习、家庭作业、听力视频和场景对话练习都放在一个地方。</p>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <nav class="tabs" aria-label="学习区域">
+        <button class="tab is-active" data-view="slides" data-i18n="tabSlides">课件</button>
+        <button class="tab" data-view="homework" data-i18n="tabHomework">作业</button>
+        <button class="tab" data-view="listening" data-i18n="tabListening">听力</button>
+        <button class="tab" data-view="dialogue" data-i18n="tabDialogue">对话</button>
+        <button class="tab teacher-only" data-view="teacher" data-i18n="tabTeacher" hidden>老师设置</button>
+      </nav>
+
+      <section class="view is-active" id="slides">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="slidesKicker">Review</p>
+            <h2 data-i18n="slidesTitle">上课课件</h2>
+          </div>
+          <label class="file-button teacher-only" hidden>
+            <input id="slideUpload" type="file" accept=".ppt,.pptx,.pdf">
+            <span data-i18n="localUpload">本机临时上传</span>
+          </label>
+        </div>
+        <div id="slideList" class="resource-grid"></div>
+      </section>
+
+      <section class="view" id="homework">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="homeworkKicker">Homework</p>
+            <h2 data-i18n="homeworkTitle">家庭作业</h2>
+          </div>
+          <button class="secondary-button" id="resetPractice" data-i18n="resetPractice">重新练习</button>
+        </div>
+
+        <div class="practice-layout">
+          <article class="panel">
+            <div class="panel-title">
+              <span>1</span>
+              <h3 data-i18n="matchTitle">Match 中英文词语</h3>
+            </div>
+            <div class="match-board">
+              <div>
+                <h4 data-i18n="chineseLabel">中文</h4>
+                <div id="chineseTerms" class="choice-list"></div>
+              </div>
+              <div>
+                <h4 data-i18n="englishLabel">英文</h4>
+                <div id="englishTerms" class="choice-list"></div>
+              </div>
+            </div>
+            <p id="matchFeedback" class="feedback"></p>
+          </article>
+
+          <article class="panel">
+            <div class="panel-title">
+              <span>2</span>
+              <h3 data-i18n="sentenceTitle">组成一句话</h3>
+            </div>
+            <p id="sentencePrompt" class="prompt-line"></p>
+            <div id="wordBank" class="word-bank"></div>
+            <div id="sentenceAnswer" class="sentence-answer"></div>
+            <div class="inline-actions">
+              <button id="checkSentence" data-i18n="check">检查</button>
+              <button class="secondary-button" id="clearSentence" data-i18n="clear">清空</button>
+            </div>
+            <p id="sentenceFeedback" class="feedback"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="listening">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="listeningKicker">Listening</p>
+            <h2 data-i18n="listeningTitle">场景视频听力</h2>
+          </div>
+          <label class="file-button teacher-only" hidden>
+            <input id="videoUpload" type="file" accept="video/*">
+            <span data-i18n="localUpload">本机临时上传</span>
+          </label>
+        </div>
+        <div class="listening-grid">
+          <div class="video-frame">
+            <video id="sceneVideo" controls playsinline></video>
+            <iframe id="videoEmbed" title="场景视频" allowfullscreen></iframe>
+            <div id="videoEmpty" class="empty-state" data-i18n="videoEmpty">老师可以放一段餐厅、商店、看医生等场景视频，学生边看边回答问题。</div>
+          </div>
+          <article class="panel">
+            <div class="panel-title">
+              <span>3</span>
+              <h3 data-i18n="listeningQuestionsTitle">听力问题</h3>
+            </div>
+            <div id="listeningQuestions" class="question-list"></div>
+            <button id="checkListening" data-i18n="checkListening">检查听力答案</button>
+            <p id="listeningFeedback" class="feedback"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="dialogue">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="speakingKicker">Speaking</p>
+            <h2 data-i18n="dialogueTitle">场景对话练习</h2>
+          </div>
+          <button class="secondary-button" id="newDialogue" data-i18n="newDialogue">换一个开头</button>
+        </div>
+        <div class="dialogue-layout">
+          <aside class="scenario-panel">
+            <label for="scenarioSelect" data-i18n="scenarioLabel">场景</label>
+            <select id="scenarioSelect"></select>
+            <label for="studentRole" data-i18n="studentRoleLabel">学生角色</label>
+            <input id="studentRole" type="text" value="顾客">
+            <label for="aiRole" data-i18n="aiRoleLabel">AI 角色</label>
+            <input id="aiRole" type="text" value="服务员">
+            <div class="hint-box">
+              <strong data-i18n="practiceGoal">练习目标</strong>
+              <p id="dialogueGoal"></p>
+            </div>
+          </aside>
+          <article class="chat-panel">
+            <div id="chatLog" class="chat-log" aria-live="polite"></div>
+            <form id="chatForm" class="chat-form">
+              <input id="chatInput" type="text" placeholder="用中文回复，例如：我想点一杯热茶。" autocomplete="off" data-i18n-placeholder="chatPlaceholder">
+              <button type="submit" data-i18n="send">发送</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section class="view teacher-only" id="teacher" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="teacherKicker">Teacher</p>
+            <h2 data-i18n="teacherTitle">老师设置</h2>
+          </div>
+          <button id="saveTeacherData" data-i18n="saveSettings">保存设置</button>
+        </div>
+
+        <div class="teacher-grid">
+          <article class="panel">
+            <h3 data-i18n="onlineSlidesTitle">线上课件链接</h3>
+            <textarea id="slideLinkEditor" rows="8"></textarea>
+            <p class="helper" data-i18n="onlineSlidesHelp">每行一个：课件名称 = Google Drive、Dropbox、OneDrive 或网盘链接</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="onlineVideoTitle">线上视频链接</h3>
+            <input id="videoTitle" type="text" placeholder="视频标题" data-i18n-placeholder="videoTitlePlaceholder">
+            <input id="videoUrl" type="url" placeholder="YouTube unlisted、Google Drive 或 mp4 链接" data-i18n-placeholder="videoUrlPlaceholder">
+            <p class="helper" data-i18n="onlineVideoHelp">发布给学生时，推荐使用 unlisted YouTube 或共享视频链接。</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="matchEditorTitle">匹配题</h3>
+            <textarea id="matchEditor" rows="8"></textarea>
+            <p class="helper" data-i18n="matchEditorHelp">每行一组：中文 = English</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="sentenceEditorTitle">组句题</h3>
+            <input id="sentenceTarget" type="text">
+            <input id="sentenceTranslation" type="text">
+            <p class="helper" data-i18n="sentenceEditorHelp">第一行写中文正确答案，第二行写英文提示。</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="listeningEditorTitle">听力问题</h3>
+            <textarea id="listeningEditor" rows="8"></textarea>
+            <p class="helper" data-i18n="listeningEditorHelp">每行一题：问题 = 答案关键词</p>
+          </article>
+          <article class="panel">
+            <h3 data-i18n="scenarioEditorTitle">对话场景</h3>
+            <textarea id="scenarioEditor" rows="8"></textarea>
+            <p class="helper" data-i18n="scenarioEditorHelp">每行一个场景：场景名 = 练习目标</p>
+          </article>
+        </div>
+        <p id="saveFeedback" class="feedback"></p>
+      </section>
+    </main>
+
+    <script src="site-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
